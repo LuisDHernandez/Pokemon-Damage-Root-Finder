@@ -3,14 +3,14 @@
 # modifiers or possibilities and then eventually have a generic function that can handle all of it.
 
 """
-@:param P - Power of a move
-@:param Atk - Attack stat of the attacking Pokémon ( Atk or Special Atk depending on the move )
-@:param Def - Defense stat of the defending Pokémon ( Def or Special Def depending on the move used against it )
-@:param Mod - currently just a catch-all for any modifiers we want to test
+:param P: Power of a move
+:param Atk: Attack stat of the attacking Pokémon ( Atk or Special Atk depending on the move )
+:param Def: Defense stat of the defending Pokémon ( Def or Special Def depending on the move used against it )
+:param Mod: currently just a catch-all for any modifiers we want to test
 
-@:return: val - the total damage that a move does, based on the factors above
+:return val: the total damage that a move does, based on the factors above
 """
-def damage(P,Atk, Def, Mod) -> float: #damage equation from Pokémon
+def damage(P:int,Atk:int, Def:int, Mod:float) -> float: #damage equation from Pokémon
     val = 22*P
     val *= (Atk / Def)
     val /= 50
@@ -18,14 +18,16 @@ def damage(P,Atk, Def, Mod) -> float: #damage equation from Pokémon
     val *= Mod
     return val
 
-"""
 
-@:param atk_type - the typing of the Pokemon move
-@:param w_condition - the weather condition that is currently active in the battle
 
-@:return modifier - the modifier for the attack depending on the sun or rain weather conditions
+
 """
-def check_sun_or_rain(atk_type,w_condition):
+:param atk_type: the typing of the Pokemon move
+:param w_condition: the weather condition that is currently active in the battle
+
+:return modifier: the modifier for the attack depending on the sun or rain weather conditions
+"""
+def check_sun_or_rain(atk_type:str,w_condition:str)->float:
     modifier = 1
     match w_condition:
         case 'Sunny':
@@ -45,3 +47,16 @@ def check_sun_or_rain(atk_type,w_condition):
                 modifier *= 2
                 return modifier
     return modifier
+
+"""
+:param crit: Boolean value that is true when the attack is a crit and false if not
+
+:return boost: Int value modifier that multiplies damage by the amount returned
+"""
+def is_critical_hit(crit:bool)->int:
+    boost = 1
+    if crit:
+        boost = 2
+        return boost
+    else:
+        return boost
