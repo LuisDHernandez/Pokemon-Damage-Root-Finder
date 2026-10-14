@@ -1,4 +1,5 @@
 import math
+import pkmn_functions as pf
 # Resources Online
 # https://calc.pokemonshowdown.com/champions.html?mode=champions
 # https://play.pokemonshowdown.com/teambuilder
@@ -40,17 +41,8 @@ def pkmn_bisection_method(f,a,b,TOL,N0):
     print(f"Method failed after {N0} iterations.")
     return None
 
-def damage(P,Atk, Def, Mod) -> float: #damage equation from Pokémon
-    val = 22*P
-    val *= (Atk / Def)
-    val /= 50
-    val += 2
-    val *= Mod
-    return val
-
 """
 num = damage(50,100,90,1) # calculate damage for a move with 50 Power and an atk 0f 100 versus a def of 90 with no modifiers active
-print(f"The amount of damage the move can do with given parameters is {in_game_rounding(num)}.")
 lower_bound = math.floor(0.85 * num)
 upper_bound = math.floor(num)
 
@@ -66,11 +58,9 @@ def remainder(power, A_atk, D_def, Mod, dmg_func, health_Def, lower = 0.85, uppe
     health_interval = [math.ceil(H - upper * dmg), math.ceil(H - lower * dmg)]
     return health_interval
 
-
-# noinspection SpellCheckingInspection
 print("We have a level 50 Infernape with Special Attack = 124 use the move Scorching Sands which has 70 base power on a "
       "level 50 Conkeldurr with 180HP and Special Defense = 85")
-leftover_health = remainder(70,124,85,1,damage,180)
+leftover_health = remainder(70,124,85,1,pf.damage,180)
 print(f"The amount of health leftover from the attack with given parameters is {leftover_health}")
 print("We see that the damage done is not enough to K.O. the Conkeldurr. Therefore, if we wanted to ensure a K.O. we will need"
       " to consider modifiers, EVs, and more.")
@@ -83,14 +73,14 @@ def r(x): # Infernape with no EV training example
     # Assuming Mod = 1
     # A = Attacker stat using Infernape
     # D = Defender stat using Conkeldurr
-    return 180 - (((22*x*(124/85))/50)+2)*1
+    return 180 - (((22*x*(124/85))/50)+2)*1 # specific instance of the damage function pf.damage
 
 def r2(x): # Infernape with EV training example
     # return H - D(x)
     # Assuming Mod = 1
     # A = Attacker stat using Infernape with 32 EV points in A
     # D = Defender stat using Conkeldurr
-    return 180 - (((22*x*(156/85))/50)+2)*1
+    return 180 - (((22*x*(156/85))/50)+2)*1 # specific instance of the damage function pf.damage
 
 interval = [0,360] # this interval for damage encompasses the threshold that minimum damage to K.O. is 180. We double the value to approximate an upper bound
 root = pkmn_bisection_method(r, interval[0], interval[1], 1e-4, 100)
