@@ -29,7 +29,7 @@ def damage(P:int,Atk:int, Def:int, Mod:float) -> float: #damage equation from Po
 :return sp_def_stat: the special defense stat of the Pokemon after Sand is checked for Rock types
 :return def_stat: the defense stat of the Pokemon after Snow is checked for Ice types
 """
-def check_weather(atk_type:str,w_condition:str,pkmn_type:str,def_stat:int,sp_def_stat:int)->float:
+def check_weather(atk_type:str,w_condition:str,pkmn_type:str ='',def_stat:int=1,sp_def_stat:int=1)->float:
     modifier = 1
     match w_condition:
         case 'Sunny':
