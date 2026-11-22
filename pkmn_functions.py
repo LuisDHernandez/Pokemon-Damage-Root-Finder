@@ -10,8 +10,11 @@ import math
 
 :return val: the total damage that a move does, based on the factors above
 """
-def damage(P:int,Atk:int, Def:int, Mod:float) -> float: #damage equation from Pokémon
-    val = 22*P
+def damage(P:int,Atk:int, Def:int, Mod:float,STAB = False) -> float: #damage equation from Pokémon
+    stab_mult = 1
+    if STAB:
+        stab_mult = 1.5
+    val = 22*P * stab_mult
     val *= (Atk / Def)
     val /= 50
     val += 2

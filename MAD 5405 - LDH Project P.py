@@ -57,5 +57,5 @@ print("Say we utilize effort value (EV) training and increase Infernape's specia
       " We assume Conkeldurr did not receive any EV training for defense. Then, we apply bisection method again.")
 
 root2 = rf.pkmn_bisection_method(r2, interval[0], interval[1], 1e-4, 100)
-print(f"The power necessary for EV trained Infernape to K.O. Conkeldurr with a special attack move is: {math.ceil(root2)}")
+print(f"The power necessary for EV trained, STAB boosted move for Infernape to K.O. Conkeldurr with a special attack move is: {math.ceil(root2)}")
 print("We see that this root is within the power interval of [0,250], thus the solution is valid.")

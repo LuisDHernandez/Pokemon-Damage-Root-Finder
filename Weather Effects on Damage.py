@@ -13,9 +13,9 @@ I will show how the modifiers from weather linearly effect the solution
 def health(dmg):
     return 150 - dmg
 
-regular_HW = math.ceil(pf.damage(95,179,100,1))# Base Charizard Y with no modifiers from crits and assuming it lost it's Fire typing
+regular_HW = math.ceil(pf.damage(95,179,100,1,True))# Base Charizard Y with no modifiers from crits and assuming it lost it's Fire typing
 
-sun_boosted_HW = math.ceil(pf.damage(95,179,100,1)*pf.check_weather('Fire','Sunny'))
+sun_boosted_HW = math.ceil(pf.damage(95,179,100,1,True)*pf.check_weather('Fire','Sunny'))
 
 print(regular_HW)
 print(sun_boosted_HW)
@@ -30,10 +30,10 @@ print("We see that the Sunny weather boosted the attack value of Heat Wave by 2 
       " if we want to see what other power moves can we utilize to get a KO?")
 
 def health_as_function(power):
-    return 150 - ((22*power)*((179/100)/50)+ 2)
+    return 150 - ((22*1.5*power)*((179/100)/50)+ 2)
 
 def dhealth_as_function(power):
-    return -((22*(179/100)/50)+ 2)
+    return -((22*1.5*(179/100)/50)+ 2)
 
 
 print("We will try to find a solution with Newton's Method. We know that there is enough damage to KO the Pokemon "
@@ -47,6 +47,6 @@ newton = rf.pkmn_newton(health_as_function,dhealth_as_function,185,1e-6,100)
 print("Now, we will use False Position Method to show a faster solution without the need of calculating a derivative.")
 fpm_calc = rf.pkmn_false_position(health_as_function,0,250,1e-12,100)
 
-print("The solution is quickly found that a power of 187.9 at a minimum is needed. Since Heat Wave is base 95 power "
+print(f"The solution is quickly found that a power of {math.ceil(fpm_calc)} at a minimum is needed. Since Heat Wave is base 95 power "
       "and the weather effect of Sun boosts that power by 2, then it's effective power is 190, which is enough for the KO.")
 
