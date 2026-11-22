@@ -40,12 +40,12 @@ def r(x): # Infernape with no EV training example
     # D = Defender stat using Conkeldurr
     return 180 - (((22*x*(124/85))/50)+2)*1 # specific instance of the damage function pf.damage
 
-def r2(x): # Infernape with EV training example
+def r2(x): # Infernape with EV training example and using a Fire / Fighting type move
     # return H - D(x)
     # Assuming Mod = 1
     # A = Attacker stat using Infernape with 32 EV points in A
     # D = Defender stat using Conkeldurr
-    return 180 - (((22*x*(156/85))/50)+2)*1 # specific instance of the damage function pf.damage
+    return 180 - (((22*1.5*x*(156/85))/50)+2)*1 # specific instance of the damage function pf.damage
 
 interval = [0,360] # this interval for damage encompasses the threshold that minimum damage to K.O. is 180. We double the value to approximate an upper bound
 root = rf.pkmn_bisection_method(r, interval[0], interval[1], 1e-4, 100)
